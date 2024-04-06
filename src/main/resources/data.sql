@@ -1,0 +1,2 @@
+INSERT IGNORE INTO `user`(`user_id`,`name`,`password`,`phone_number`,`role`,`username`,`pending_request`,`created_date`,`updated_date`) VALUES
+    (1,'ADMIN','$2a$10$7sFPuv1oAYlgVQSzzCdQwe5fo28SYUJZ7jsIdJJXtMfccghn7sknq','9101835958','ADMIN','admin@medsol.com',false,'2024-03-16 09:57:48',null);
