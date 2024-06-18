@@ -18,4 +18,13 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query(value = "SELECT * FROM user WHERE role =? AND name !=?",nativeQuery = true)
     public List<User> showUsersLists(String role,String name);
 
+    @Query(value = "select count(*) FROM user WHERE pending_request=true AND role ='USER'",nativeQuery = true)
+    Integer showUserCountPendingRequestTrue();
+
+    @Query(value = "select count(*) FROM user WHERE pending_request=false AND role='USER'",nativeQuery = true)
+    Integer showUserCountPendingRequestFalse();
+
+    @Query(value = "SELECT COUNT(*) FROM user WHERE role='USER'",nativeQuery = true)
+    Integer showUserCount();
+
 }

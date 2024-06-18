@@ -1,5 +1,6 @@
 package com.springBootJWT.SpringJwt_Project.service;
 
+import com.springBootJWT.SpringJwt_Project.dto.CountResponse;
 import com.springBootJWT.SpringJwt_Project.dto.VendorRequestDTO;
 import com.springBootJWT.SpringJwt_Project.model.ResponseMessage;
 import com.springBootJWT.SpringJwt_Project.model.User;
@@ -28,6 +29,7 @@ public class VendorServiceImp implements VendorService {
     private UserRepository userRepository;
     @Autowired
     private VendorRepository vendorRepository;
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VendorServiceImp.class);
 
@@ -120,4 +122,27 @@ public class VendorServiceImp implements VendorService {
         }
     }
 
+
+    @Override
+    public ResponseMessage showVendorCount() {
+        try {
+//            Vendor Count
+            Integer showVendorTotalCount = vendorRepository.findAll().size();
+            Integer showVendorPendingRequestTrue = vendorRepository.showVendorCountPendingRequestTrue();
+            Integer showVendorPendingRequestFalse = vendorRepository.showVendorCountPendingRequestFalse();
+
+//          User Count
+
+            Integer showUserTotalCount = userRepository.showUserCount();
+            Integer showUserPendingRequestTrue = userRepository.showUserCountPendingRequestTrue();
+            Integer showUserPendingRequestFalse = userRepository.showUserCountPendingRequestFalse();
+
+            return new ResponseMessage(HttpStatus.OK.value(), "SUCCESS",null,
+                    new CountResponse(showVendorTotalCount,showVendorPendingRequestTrue,
+                            showVendorPendingRequestFalse,showUserTotalCount,showUserPendingRequestTrue,showUserPendingRequestFalse));
+        }catch (Exception ex){
+            LOGGER.error(":::::::::::::::Update Error:::::::::::::::::" + ex.getMessage());
+            return new ResponseMessage(HttpStatus.BAD_REQUEST.value(), "FAILED", null, null);
+        }
+    }
 }

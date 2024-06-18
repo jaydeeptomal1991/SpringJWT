@@ -17,6 +17,18 @@ spring:
   sql:
     init:
       mode: always
+  mail:
+    host: smtp.office365.com
+    username: jaydeeptomal@hotmail.com
+    password: jayrimpi1991
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 app:
   jwtExpirationInMs: 10800000
+

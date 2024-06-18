@@ -36,5 +36,10 @@ public class VendorController {
         return ResponseEntity.ok(vendorServiceImp.updateVendor(vendorRequestDTO));
     }
 
+    @GetMapping("/vendorStatistics")
+    private ResponseEntity<?> showVendorStatistics(){
+        return ResponseEntity.ok(vendorServiceImp.showVendorCount());
+    }
+
 
 }

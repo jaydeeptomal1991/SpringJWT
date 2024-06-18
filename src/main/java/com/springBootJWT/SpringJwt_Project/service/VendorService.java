@@ -14,4 +14,6 @@ public interface VendorService {
      ResponseMessage showVendorList();
 
      ResponseMessage updateVendor(VendorRequestDTO vendorRequestDTO);
+
+     ResponseMessage showVendorCount();
 }

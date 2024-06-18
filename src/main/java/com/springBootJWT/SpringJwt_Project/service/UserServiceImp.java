@@ -1,20 +1,23 @@
 package com.springBootJWT.SpringJwt_Project.service;
 
+import com.springBootJWT.SpringJwt_Project.dto.UserDto;
 import com.springBootJWT.SpringJwt_Project.dto.UserRequestDTO;
 import com.springBootJWT.SpringJwt_Project.model.ResponseMessage;
 import com.springBootJWT.SpringJwt_Project.model.User;
 import com.springBootJWT.SpringJwt_Project.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -53,4 +56,25 @@ public class UserServiceImp implements UserService {
         }
     }
 
+    @Override
+    public ResponseMessage forgetPassword(UserDto user) {
+        try {
+            String username = user.getUsername();
+            Optional<User> ifUserPresent = userRepository.findByUsername(username);
+            if(ifUserPresent.isEmpty()){
+                return new ResponseMessage(HttpStatus.NOT_FOUND.value(), "User not found");
+            }else{
+                User getUser=ifUserPresent.get();
+                try {
+                    return new ResponseMessage(HttpStatus.OK.value(), "Email sent to registered email Id");
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                    return new ResponseMessage(HttpStatus.BAD_REQUEST.value(), "Error sending email");
+                }
+
+            }
+        } catch (Exception ex) {
+            return new ResponseMessage(HttpStatus.BAD_REQUEST.value(), "Error");
+        }
+    }
 }

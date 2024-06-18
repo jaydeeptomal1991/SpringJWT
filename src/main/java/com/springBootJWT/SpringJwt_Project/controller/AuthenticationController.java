@@ -1,5 +1,6 @@
 package com.springBootJWT.SpringJwt_Project.controller;
 
+import com.springBootJWT.SpringJwt_Project.dto.UserDto;
 import com.springBootJWT.SpringJwt_Project.dto.UserRequestDTO;
 import com.springBootJWT.SpringJwt_Project.model.User;
 import com.springBootJWT.SpringJwt_Project.model.Vendor;
@@ -48,6 +49,12 @@ public class AuthenticationController {
     @PatchMapping("/updateUser")
     private ResponseEntity<?> updateUserData(@CurrentUser User user,@RequestBody UserRequestDTO userRequestDTO){
         return ResponseEntity.ok(userServiceImp.updateUserData(userRequestDTO));
+    }
+
+
+    @PostMapping("/findUserForgetPassword")
+    private ResponseEntity<?> forgetPassword(@RequestBody UserDto user){
+        return ResponseEntity.ok(userServiceImp.forgetPassword(user));
     }
 
 }
